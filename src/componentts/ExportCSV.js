@@ -25,11 +25,8 @@ const ExportCSV = (props) => {
      
     }
 
-  return (
-    <div style={style}>
-
-        <button ><CSVLink {...csvLink} style={{color:"white"}}>Download</CSVLink></button>
-    </div>
+  return ( 
+        <button className='downloadBtn' ><CSVLink {...csvLink} style={{color:"white"}}>Download</CSVLink></button>
   )
 }
 
