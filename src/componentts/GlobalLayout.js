@@ -18,7 +18,7 @@ const GlobalLayout = (props) => {
      
       <div className="backgroundImg">
         
-        <div className="">
+        <div className="cardView">
         {/* <HeadingBanner text={props.heading}  /> */}
           {props.children}
            
