@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import GlobalLayout from '../componentts/GlobalLayout'
 import HeadingBanner from '../componentts/HeadingBanner'
-import {collection, doc, getDocs} from "firebase/firestore"
+import {collection, doc, getDocs , query , where} from "firebase/firestore"
 import { db } from '../firebase-config'
 import ReactPaginate from 'react-paginate'
 import ExportCSV from '../componentts/ExportCSV'
@@ -20,6 +20,19 @@ const DashboardScreen = () => {
     console.log(data);
 }
 
+const filterUsers = async()=>{
+  if(select=="By Choice"){
+      const docReference = collection(db,"user");
+      const filterQuery = await query(docReference, where("choice", "==", "Yes"));
+      const querySnapshot = await getDocs(filterQuery);
+      setUsers(querySnapshot.docs.map((doc)=>({...doc.data(),id : doc.id})));
+  }
+  else{
+      fetchFirebase();
+  }
+}
+
+
   useEffect(()=>{
     if (!location.state.login)
     {
@@ -30,6 +43,8 @@ const DashboardScreen = () => {
 
   const [users,setUsers] = useState([]);
   const userReference = collection(db,"user");
+
+  const [select,setSelect] = useState("None");
 
   const [pageNumber, setPageNumber] = useState(0);
   const usersPerPage = 10;
@@ -58,8 +73,16 @@ const DashboardScreen = () => {
   return (
     <GlobalLayout heading ="Home">
     <HeadingBanner text={"Welcome"} headerNav = {"Sign Out"} to={"/"} /> 
-       <div className='userListBox'>
-       <ExportCSV users = {users}/>
+       <div className='userListBox' >
+
+       <div className='optionPanel'>
+          <select value={select} onChange={(e)=>setSelect(e.target.value)}>
+            <option>None</option>
+            <option>By Choice</option>
+          </select>
+          <button  onClick={filterUsers}>Filter</button>
+          <ExportCSV users = {users} />
+       </div>
         
         <table>
           <tr>
