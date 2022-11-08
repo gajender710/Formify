@@ -142,6 +142,15 @@
     padding:0% 2% 0% 2%;
   }
 
+  .LoginRegisterBoxInner{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    padding:0% 2% 1% 2%;
+    border: 2px solid pink;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
   .loginButton{
     padding: 4px 16px;
     margin-top: 20px;

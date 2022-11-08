@@ -19,6 +19,7 @@ const[allValid,setAllValid] = useState(false);
  const[mobile,setMobile] = useState("");
  const[email,setEmail] = useState("");
  const[choice,setChoice] = useState();
+ const[reason,setReason] = useState("");
 
  
  const userReference = collection(db,"user");
@@ -45,14 +46,27 @@ const[allValid,setAllValid] = useState(false);
 
  const choiceHandleer = (event)=>{
    setChoice(event.target.value);
+   if(event.target.value == "Yes")setReason("");
    console.log(choice);
+ }
+
+ const reasonBox = () =>{
+   return (
+      <div className='LoginRegisterBoxInner' style={{width:'100%'}}>
+         <input placeholder='Can you please mention the reason' style={{borderStyle:'none'}}
+            onChange={(event)=>setReason(event.target.value) }
+         />
+      </div>
+   )
  }
 
  const submitFeedback= async() =>{
 
-   if(validation())
-   await addDoc(userReference,{email : email,  mobile:mobile , name:name ,choice : choice});
- }
+   if(validation()){
+   await addDoc(userReference,{email : email,  mobile:mobile , name:name ,choice : choice , reason: reason});
+   alert("Submission Successful")
+   }
+}
   return (
     <GlobalLayout heading ="Dashboard">
       <HeadingBanner text={"Feedback Form"} headerNav = {"Dashboard"} to = {"/LoginRegisterScreen"}/> 
@@ -81,6 +95,7 @@ const[allValid,setAllValid] = useState(false);
                   <input  type={'radio'} name="choice" value={"No"}  onChange={choiceHandleer} />
                </div>
             </div>
+            {choice=="No" ?  reasonBox(): null}
             {/* {choice? <p>selected</p> :<p>please select</p>} */}
             {isSelected ? null: <label>Please select</label>}            
             <footer>
