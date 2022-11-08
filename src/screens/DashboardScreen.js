@@ -5,7 +5,6 @@ import {collection, doc, getDocs , query , where} from "firebase/firestore"
 import { db } from '../firebase-config'
 import ReactPaginate from 'react-paginate'
 import ExportCSV from '../componentts/ExportCSV'
-import { onAuthStateChanged } from 'firebase/auth'
 import { useLocation, useParams } from 'react-router-dom'
 
 
@@ -53,9 +52,9 @@ const filterUsers = async()=>{
 
   const displayUsers = users
   .slice(pagesVisited, pagesVisited + usersPerPage)
-  .map((user) => {
+  .map((user,index) => {
     return (
-      <tr className='user'>
+      <tr className='user' key={index}>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.choice}</td>
@@ -85,12 +84,16 @@ const filterUsers = async()=>{
        </div>
         
         <table>
+          <thead>
           <tr>
             <th>Name</th>
             <th>Email</th>
             <th>Choice</th>
           </tr>
+          </thead>
+          <tbody>
           {displayUsers}
+          </tbody>
  
         </table>        
       

@@ -16,7 +16,7 @@ const ExportCSV = (props) => {
         {label:"Email" , key: "email"},
         {label:"Mobile" , key: "mobile"},
         {label:"Choice" , key: "choice"},
-      
+        {label:"Reason" , key: "reason"},
     ]
     const csvLink = {
       headers: headers,

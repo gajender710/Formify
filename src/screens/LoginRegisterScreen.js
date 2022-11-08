@@ -54,15 +54,16 @@ const LoginRegisterScreen = (props) => {
     <div className='LoginRegisterBox'>
             
             
-            <div>
+            <div className='LoginRegisterBoxInner'>
                 <p className='inputLabel'>Enter Email</p>
                 <input className="input" placeholder="Type 'test@gmail.com' " onChange={(event)=>{setLoginEmail(event.target.value)}}/>
                 <p className='inputLabel'>Enter Password</p>
                 <input className="input" placeholder="Type 'test123' " onChange={(event)=>{setLoginPass(event.target.value)}}/>
                 
-            </div>
-            {!error? null :<label>Email or Password is invalid</label>}
+                {!error? null :<label>Email or Password is invalid</label>}
             <button className='loginButton' onClick={login} >Login</button>
+            </div>
+           
             
 
     </div>
